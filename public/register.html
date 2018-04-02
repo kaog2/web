@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/register.css?1.0.0"> 
+<title>Login</title>
+
+<script>
+  $(document).ready(function(){
+    $("#button").click(function(){
+        $.post("/createUser",
+        {
+          firstname: $("#firstname").val(),
+          lastname: $("#lastname").val(),
+          username: $("#username").val(),
+          password: $("#password").val(),
+          email: $("#email").val(),
+          birthdate: $("#birthdate").val(),
+          nationality: $("#nationality").val()
+        },
+        function(data, status){
+          if (typeof data.redirect == 'string') window.location = data.redirect;
+          else {
+            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+          }
+        });
+    });
+
+  });
+</script>
+<body>
+
+  
+  <div id="wrapper">
+
+    <form action="/login" class="login-form" method="post">
+    
+      <div class="header">
+        <center><h1>Registro</h1></center> 
+        <center><span>Escriba datos solicitados.</span></center>
+      </div>
+    
+      <div class="content">
+        <input name="firstname" type="text" id="firstname" class="input username" placeholder="Nombre" />
+        <input name="lastname" type="text" id="lastname" class="input username" placeholder="Apellidos" />
+        <input name="username" type="text" id="username" class="input username" placeholder="Nombre Usuario" />
+        <input name="password" type="password" id="password" class="input username"  />
+        <input name="email" type="text" id="email" class="input username" placeholder="Email" />
+        <input name="birthdate" type="text" id="birthdate" class="input username" placeholder="Fecha de nacimiento" />
+        <input name="nationality" type="text" id="nationality" class="input username" placeholder="Nacionalidad" />
+      </div>
+
+      <div class="footer">
+        <button type="button" id="button" class="button">Registrar</button> 
+      </div>
+      <div class="error"></div>
+    </form>
+
+  </div>
+  <div class="gradient"></div>
+
+</body>
+</html>

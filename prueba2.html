@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+
+<script type="text/javascript">
+
+	$('div[class="testimonial"]').each(function(index,item){
+    if(parseInt($(item).data('index'))>2){
+        $(item).html('Testimonial asdasd '+(index+1)+' by each loop');
+    }
+	});
+
+</script>
+
+<script type="text/javascript">
+	function multiplicarInputs(text){
+      var num= text.value
+      var div='';
+      for (var i=0;i<num;i++){ 
+           var cont=i+1;
+           div+="<br> Input text "+cont+"<input maxlength='5' name='inputTextMulti[]' size='6' type='text' />&nbsp;";
+      }
+
+      document.getElementById("divMultiInputs").innerHTML=div;
+
+      div+="<div id='l_g' class='l_g'>  <div id='praesent' class='col-md-3 praesent'> <div id='dapibus' class='dapibus'> <h2>"+title +"</h2> <p class="adm">"+i+"<a href="#">"+username+"</a>"+"|"+post_date +"</p> <a>"+ "<img src="" class=img-responsive alt="">"+"</a> <p>"+body+"</p>  <a class="link">"+"Read"+"</a></div> </div> </div>";
+}
+
+
+
+</script>
+<body>
+
+<div class="testimonial" data-index="1">
+    Testimonial 1
+</div>
+<div class="testimonial" data-index="2">
+    Testimonial 2
+</div>
+<div class="testimonial" data-index="3">
+    Testimonial 3
+</div>
+<div class="testimonial" data-index="4">
+    Testimonial 4
+</div>
+<div class="testimonial" data-index="5">
+    Testimonial 5
+</div>
+
+</body>
+</html>
+
+                   /* var div1=$("#lista").html("<div id='l_g' class='l_g'></div>");
+					var div2=$("#l_g").html("<div id='praesent' class='col-md-3 praesent'></div>");
+					var div3=$("#praesent").html("<div id='dapibus' class='dapibus'></div>");/*
+	                /*var h2=$("#dapibus").append("<h2>"+title +"</h2>");
+                    var p1=$("#dapibus").append('<p class="adm">'+i+'<a href="#">'+username+'</a>'+"|"+post_date +'</p>');
+                    var a=$("#dapibus").append('<a>'+ '<img src="" class="img-responsive" alt="">'+'</a>');
+                    var p2 =  $("#dapibus").append('<p>'+body+'</p>');
+                    var a2 = $("#dapibus").append('<a class="link">'+"Read"+'</a>');*/
+                    //$(div3).append("<h2>"+title +"</h2>");
+                    //$(div3).append("<p class="adm">"+i+"<a href="#">"+username+"</a>"+"|"+post_date +"</p>");
+                    //$(div3).append("<a>"+ "<img src="" class=img-responsive alt="">"+"</a>");
+                    //$(div3).append("<p>"+body+"</p>");
+                    //$(div3).append("<a class="link">"+"Read"+"</a>");

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("li").click(function(){
+      var title=$(this).attr("title")
+      var name='#'+title;
+      $("div.content").removeClass("active");
+      $("div.content").addClass("hidden");
+      if(title =='bienvenida'){
+        $(name).load("contenido",function(response, status, xhr){
+            if (status == "success"){
+                var items=jQuery.parseJSON(response);
+                var table=$(name).html("<table></table>");
+                $(items).each(function(index,value){
+                        var id = value.id;
+                        var desc = value.descripcion;
+                        $(table).append('<tr><td>' + id + '</td><td>' + desc + '</td></tr>');
+                });
+            } 
+            else {
+                $(name).html("Ha ocurrido un error: <br>"+ name + xhr.status + " " + xhr.statusText);
+            }
+          }).addClass("active");
+        }
+
+       else{
+          $(name).addClass("active");
+       }
+      $(name).removeClass("hidden");
+    });
+});
+$(document).ready(function(){
+    $("li").click(function(){
+      var title=$(this).attr("title")
+      var name='#'+title;
+      $("div.content").removeClass("active");
+      $("div.content").addClass("hidden");
+      
+      if(title=='syllabus'){
+          $(name).load("syllabus",function(response, status, xhr){
+            if (status == "success"){
+                var items=jQuery.parseJSON(response);
+                var table=$(name).html("<table></table>");
+                $(items).each(function(index,value){
+                        var id = value.id;
+                        var desc = value.descripcion;
+                        $(table).append('<tr><td>' + id + '</td><td>' + desc + '</td></tr>');
+                });
+            } 
+            else {
+                $(name).html("Ha ocurrido un error: <br>"+ name + xhr.status + " " + xhr.statusText);
+            }
+          }).addClass("active");
+        }
+
+       else{
+          $(name).addClass("active");
+       }
+      $(name).removeClass("hidden");
+    });
+});
+$(document).ready(function(){
+
+  $("#submit").click(function(){
+      $.post("/update",
+      {
+        id: $("#id").val(),
+        nombre: $("#nombre").val(),
+        descripcion: $("#descripcion").val(),
+        fecha: $("#fecha").val()
+      },
+      function(data, status){
+        if (typeof data.redirect == 'string'){ 
+          window.location = data.redirect;
+          $(".ingreso" ).text(data.status).show( "slow","linear" ).fadeOut();
+        }
+        else {
+          $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+        }
+      });
+  });
+
+});
+
+
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+  <h1>Programacion Web ICI 526</h1>
+</div>
+
+<div class="clearfix">
+  <div class="column menu">
+    <ul>
+      <li title="bienvenida">Bienvenida</li>
+      <li title="programacion">Programacion</li>
+      <li title="syllabus">Syllabus</li>
+    </ul>
+  </div>
+
+  <div id="bienvenida" class="column content active">
+   Esta es la pagina de Bienvenida
+  </div>
+  <div id="programacion" class="column content hidden">
+   Esta es la programacion del curso
+  </div>
+  <div id="syllabus" class="column content hidden">
+   Esta es es el Syllabus del curso
+  </div>
+</div>
+
+<div class="insertar" class="">
+    <form action="/insert" method="post">
+      <div>
+        <label>Id syllabus:</label>
+        <input type="text" id="id" name="id" />
+        <br/>
+      </div>
+      <div>
+        <label>Nombre syllabus:</label>
+        <input type="text" id="nombre" name="nombre" />
+        <br/>
+      </div>
+      <div>
+        <label>Descripcion syllabus:</label>
+        <input type="text" id="descripcion" name="descripcion" />
+        <br/>
+      </div>
+      <div>
+        <label>Fecha syllabus:</label>
+        <input type="text" id="fecha" name="fecha" />
+        <br/>
+      </div>
+      <div class="menu">
+          <ul align="center">
+          <li id="submit">Enviar</li>
+          </ul>
+      </div>
+    </form>
+</div>
+
+<div class="error hidden"></div>
+<div class="ingreso hidden"></div>
+
+<div class="footer">
+  <p>Universidad Catolica del Maule</p>
+</div>
+
+</body>
+</html>
+

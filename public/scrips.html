@@ -1,0 +1,132 @@
+</li>
+<div class="l_g">
+	<div class="col-md-3 praesent">
+		<div class="dapibus">
+			<h2>h2</h2>
+			<p class="adm">2<a href="#">Admin</a>|fecha</p>
+			<a><img src="" class="img-responsive" alt="">></a><p>p</p><a class="link">Read</a></div></div></div></li>
+
+
+
+
+
+	                
+
+	                
+	                /*if(i==0 || i==3){document.write('<li>');}
+	                	
+	                    document.write('<div class="l_g">');
+	                    document.write('<div class="col-md-3 praesent">');
+	                    document.write('<div class="dapibus">');
+
+	                    document.write('<h2>'+"h2"+'</h2>');
+						document.write('<p class="adm">'+i+'<a href="#">'+"Admin"+'</a>'+"|"+"fecha" +'</p>');
+	                    document.write('<a>'+ '<img src="" class="img-responsive" alt="">>'+'</a>');
+	                    document.write('<p>'+"p"+'</p>');
+						document.write('<a class="link">'+"Read"+'</a>');
+											
+	                     document.write('</div>');
+	                     document.write('</div>');
+	                     document.write('</div>');
+	                     
+	                     i++;
+	                     if(i==3){
+	                     	document.write('</li>');
+	                     }*/
+
+
+	                    <script type="text/javascript">
+
+	$(document).ready(function(){	
+
+		$("#post").load("posteo",function(response, status, xhr){//load carga inmediatamente en usuario el cambio de texto 
+		
+
+			if (status == "success"){
+				//alert('status'+" " +status);
+				var items=jQuery.parseJSON(response);
+				$(items).each(function(index,value){
+
+					 	$(lu).append('<li></li>');
+                        $(lu).append('<div class="l_g"></div>');
+                        $(lu).append('<div class="col-md-3 praesent"></div>');
+                        $(lu).append('<div class="dapibus"></div>');
+                        $(lu).append('<h2>'+"h2"+'</h2>');
+                        $(lu).append('<p class="adm">'+i+'<a href="#">'+"Admin"+'</a>'+"|"+"fecha" +'</p>');
+                        $(lu).append('<a>'+ '<img src="" class="img-responsive" alt="">>'+'</a>');
+                        $(lu).append('<p>'+"p"+'</p>');
+                        $(lu).append('<a class="link">'+"Read"+'</a>');
+
+				});
+			}
+		});
+	});
+
+</script>
+
+
+
+
+
+
+
+
+$("#lista").html("<div id='l_g' class='l_g'></div>").addClass("active");
+			$("#l_g").html("<div id='praesent' class='col-md-3 praesent'></div>").addClass("active");
+			$("#praesent").html("<div id='dapibus' class='dapibus'></div>").addClass("active");
+            //$("#dapibus").html("<h2>h2</h2>").addClass("active");
+            $("#dapibus").append('<h2>'+"h2"+'</h2>');
+            $("#dapibus").append('<p class="adm">'+i+'<a href="#">'+"Admin"+'</a>'+"|"+"fecha" +'</p>');
+            $("#dapibus").append('<a>'+ '<img src="" class="img-responsive" alt="">>'+'</a>');
+            $("#dapibus").append('<p>'+"p"+'</p>');
+            $("#dapibus").append('<a class="link">'+"Read"+'</a>');
+
+
+
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+
+
+	$('#myList').load("posteo",function(response, status, xhr){
+		var lu=$("#myList").html("<lu id='punto'></lu>");
+		var items=jQuery.parseJSON(response);
+		var i=0;
+		$("#punto").html("<li id='lista'></li>");
+		$(items).each(function(index,value){
+
+			$("#lista").html("<div id='l_g' class='l_g'></div>").addClass("active");
+			$("#l_g").html("<div id='praesent' class='col-md-3 praesent'></div>").addClass("active");
+			$("#praesent").html("<div id='dapibus' class='dapibus'></div>").addClass("active");
+            //$("#dapibus").html("<h2>h2</h2>").addClass("active");
+            $("#dapibus").append('<h2>'+"h2"+'</h2>');
+            $("#dapibus").append('<p class="adm">'+i+'<a href="#">'+"Admin"+'</a>'+"|"+"fecha" +'</p>');
+            $("#dapibus").append('<a>'+ '<img src="" class="img-responsive" alt="">>'+'</a>');
+            $("#dapibus").append('<p>'+"p"+'</p>');
+            $("#dapibus").append('<a class="link">'+"Read"+'</a>');
+
+                        /*$(lu).append('<li></li>');
+                        $(lu).append('<div class="l_g"></div>');
+                        $(lu).append('<div class="col-md-3 praesent"></div>');
+                        $(lu).append('<div class="dapibus"></div>');
+
+                        $(lu).append('<h2>'+"h2"+'</h2>');
+                        $(lu).append('<p class="adm">'+i+'<a href="#">'+"Admin"+'</a>'+"|"+"fecha" +'</p>');
+                        $(lu).append('<a>'+ '<img src="" class="img-responsive" alt="">>'+'</a>');
+                        $(lu).append('<p>'+"p"+'</p>');
+                        $(lu).append('<a class="link">'+"Read"+'</a>');*/
+
+                       
+                        
+        });
+
+	                
+	});
+
+});	
+
+</script>

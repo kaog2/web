@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Mi blog</title>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#usuario").load("sesion",function(response, status, xhr){ // load carga inmediatamente en usuario el cambio de texto   
+	    	var items=jQuery.parseJSON(response);
+		    //alert('Bienvenido'+" " +items);   
+	  	});	
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+	    $("#logout").click(function(){
+	        $.post("/logout",
+	        {
+	          confirmation: "register",
+	        },
+	        function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+
+  	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+	    $("#publicar").click(function(){
+	        $.post("/publicar",{
+	          confirmation: "publicar",
+	        },
+	        function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+
+  	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#blogs").click(function(){
+	        $.get("/home",function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#miBlog").click(function(){
+	        $.get("/miBlog",function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+	});
+</script>
+
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+
+		$("#biography").load("obtenerPosteosUsuario",function(response, status, xhr){//load carga inmediatamente en usuario el cambio de texto 
+
+			if (status == "success"){
+				var items=jQuery.parseJSON(response);
+				var i=0;
+				var li=0;
+				var div='';
+				$(items).each(function(index,value){
+
+					/*if (i==2) {
+						li++;
+						var lu=$("#myList").html('<li id="lista_'+li+'"></li>');
+						i=0;
+					}*/
+
+					var post_id = value.post_id;
+                    var body = value.body;
+                    var title = value.title;
+                    var username = value.username;
+                    var post_date = value.post_date;
+                    div+="<div class='biographys'><div class='col-md-4 biography-info'><img src='images/img11.jpg' class='img-responsive'/></div><div class='col-md-8 biography-into'><h4>"+title +"</h4><p>"+body+"</p><a href=# class=link>"+"Leer mas"+"</a></div><div class='clearfix'> </div><div class=clearfix> </div></div>";
+
+
+		            i++; 
+		            //document.getElementById("lista_"+li).innerHTML=div;
+		        });
+                document.getElementById("biography").innerHTML=div;
+            } 
+            else {
+                $("#biography").html("Ha ocurrido un error: <br>"+ "#biography " + xhr.status + " " + xhr.statusText);
+            }
+ 
+	  	});	
+	});
+</script>
+
+</head>
+<body>
+<!-- header -->
+<div class="banner">
+	<div class="container">
+		<div class="header">
+			<div class="logo">
+				<a href="index.html"><img src="images/logo.png" class="img-responsive" alt="" /></a>
+			</div>
+			<div class="header-right">
+				<ul>
+					<li><a href="#"><i class="fb"> </i></a></li>
+					<li><a href="#"><i class="twt"> </i></a></li>
+				<li>
+				<div class="search2">
+					<form>
+						<input type="text" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}">
+						<input type="submit" value="">
+					</form>
+				</div></li>
+					<div class="clearfix"></div>
+				</ul>
+					
+			</div>
+				<div class="clearfix"> </div>
+			</div>
+				<div class="head-nav">
+					<span class="menu"> </span>
+						<ul class="cl-effect-15">
+							<li><a id="miBlog" >Home</a></li>
+							<li><a  id="publicar">Publicar</a></li>
+							<li class="active" id="blogs"><a data-hover="Blogs">Blogs</a></li>
+							<li><a href="#" data-hover="Sobre nosotros">Sobre nosotros</a></li>
+							<li><a href="#" data-hover="Contactanos">Contactanos</a></li>
+							<li><a data-hover="Cerrar sesion" id="logout">Cerrar sesion</a></li>
+								<div class="clearfix"> </div>
+						</ul>
+				</div>
+
+						<!-- script-for-nav -->
+					<script>
+						$( "span.menu" ).click(function() {
+						  $( ".head-nav ul" ).slideToggle(300, function() {
+							// Animation complete.
+						  });
+						});
+					</script>
+				<!-- script-for-nav --> 					 
+	</div> 
+</div>
+<!-- header -->
+<div class="about">
+<div class="container">
+		<h2>Mis publicaciones</h2>		
+<div id= "biography" class="biography">
+
+</div>
+	</div>
+	</div>
+<!-- footer -->
+
+<!-- footer -->
+</body>
+</html>

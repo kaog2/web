@@ -1,0 +1,54 @@
+ <!DOCTYPE html>
+
+<html>
+
+<head> <title>Curso JavaScript aprenderaprogramar.com</title>
+
+<meta charset="utf-8">
+
+<style type="text/css">
+
+body {font-family: sans-serif; text-align:center; }
+
+div {border-style:solid;margin: 30px; padding:25px; display:inline-block;}
+
+div div {background-color: yellow;}
+
+</style>
+
+<script type="text/javascript">
+
+var contador = 1
+
+function crearNodoHijo(nodoPadre) {
+
+	var nodoHijo = document.createElement("div");
+	var nodoSubHijo = document.createElement("div");
+
+	var nodoTexto = document.createTextNode("Soy el nodo hijo "+contador);
+	var nodoTextoSubHujo = document.createTextNode("Soy el nodo nodoSubHijo "+contador);
+
+	nodoHijo.appendChild(nodoTexto);
+	nodoSubHijo.appendChild(nodoTextoSubHujo);
+
+	nodoPadre.appendChild(nodoHijo);
+	nodoSubHijo.appendChild(nodoHijo);
+
+	contador = contador +1;
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div id="nodoRaiz" onclick="crearNodoHijo(this)">
+
+Contenido inicial es este texto
+
+</div>
+
+</body>
+</html>

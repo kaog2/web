@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/login01.css"> 
+<title>Login</title>
+
+<script>
+
+  $(document).ready(function(){
+    $("#button").click(function(){
+        $.post("/login",
+        {
+          username: $("#username").val(),
+          password: $("#password").val()
+        },
+        function(data, status){
+          if (typeof data.redirect == 'string') window.location = data.redirect;
+          else {
+            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+          }
+        });
+    });
+
+  });
+
+  $(document).ready(function(){
+    $("#submit").click(function(){
+        $.post("/register",
+        {
+          confirmation: "register",
+        },
+        function(data, status){
+          if (typeof data.redirect == 'string') window.location = data.redirect;
+          else {
+            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+          }
+        });
+    });
+
+  });
+</script>
+<body>
+
+  
+  <div id="wrapper">
+
+    <form name="login-form" class="login-form" action="" method="post">
+    
+      <div class="header">
+      <center><h1>Login</h1></center> 
+      <center><span>Escriba su Usuario y Contraseña.</span></center> 
+      </div>
+    
+      <div class="content">
+        <input name="username" id="username" type="text" class="input username" placeholder="Usuario" />
+        <div class="user-icon"></div>
+        <input name="password" id="password" type="password" class="input password" placeholder="Contraseña" />
+        <div class="pass-icon"></div>   
+      </div>
+      <div class="error hidden"></div>
+      <center><input id = "button" type="button" name="button" value="Ingresar" class="button" /></center>
+    
+    </form>
+    
+    <div class="login-form">
+      <div class="footer">
+        <input type="submit" name="submit" id = "submit" value="Registrar" class="register" />
+        <p class="login-lost"><a href="">Olvidó su clave?</a></p>
+      </div>
+    </div>
+
+  </div>
+  <div class="gradient"></div>
+
+</body>
+</html>

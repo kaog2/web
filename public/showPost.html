@@ -1,0 +1,254 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Detalles</title>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<script src="js/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+	    $("#logout").click(function(){
+	        $.post("/logout",
+	        {
+	          confirmation: "register",
+	        },
+	        function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+
+  	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#blogs").click(function(){
+	        $.get("/home",function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#miBlog").click(function(){
+	        $.get("/miBlog",function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#submit").click(function(){
+	        $.post("/posteo",
+	        {
+	          title: $("#title").val(),
+	          body: $("#body").val()
+	        },
+	        function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#main").click(function(){
+	        $.get("/main",
+	        {
+	          title: $("#title").val(),
+	          body: $("#body").val()
+	        },
+	        function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#usuario").load("sesion",function(response, status, xhr){ // load carga inmediatamente en usuario el cambio de texto   
+	    	var items=jQuery.parseJSON(response);
+		    //alert('Bienvenido'+" " +items);   
+	  	});	
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		//alert('status'+" " +status);
+		$("#body").load("loadRead",function(response, status, xhr){//load carga inmediatamente en usuario el cambio de texto
+			
+			var items=jQuery.parseJSON(response);
+
+	  	});	
+	});
+</script>
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+
+		$("#comment").load("obtenerComentarios",function(response, status, xhr){//load carga inmediatamente en usuario el cambio de texto 
+			//alert('status'+" " +status);
+
+			if (status == "success"){
+				var items=jQuery.parseJSON(response);
+				var i=0;
+				
+				var div='';
+				$(items).each(function(index,value){
+					//alert('i'+" " +i);
+
+					var post_id = value.comment_id;
+                    var body = value.body;
+                    var username = value.username;
+                    var com_date = value.com_date;
+                    div+="<div class='comments-main'><div class='col-md-2 cmts-main-left'><img src='images/avatar.png' alt=''></div><div class='col-md-10 cmts-main-right'><h5>"+username+"</h5><p>"+body+"</p><div class='cmts'><div class='cmnts-left'><p>"+com_date+"</p></div><div class='cmnts-right'></div><div class='clearfix'></div></div></div><div class='clearfix'></div></div>";
+
+
+		            i++; 
+		        });
+                document.getElementById("comment").innerHTML=div;
+            } 
+            else {
+                $("#comment").html("Ha ocurrido un error: <br>"+ "#comment " + xhr.status + " " + xhr.statusText);
+            }
+ 
+	  	});	
+	});
+</script>
+
+<script>
+  $(document).ready(function(){
+    $("#submit").click(function(){
+        $.post("/comentar",
+        {
+          texto: $("#texto").val()
+        },
+        function(data, status){
+          if (typeof data.redirect == 'string') window.location = data.redirect;
+          else {
+            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+          }
+        });
+    });
+
+  });
+</script>
+
+<!-- script-for-nav -->
+<script>
+	$(document).ready(function(){
+		$( "span.menu" ).click(function() {
+		  $( ".head-nav ul" ).slideToggle(300, function() {
+			// Animation complete.
+		  });
+		});
+	});
+</script>
+<!-- script-for-nav -->	
+
+</head>
+<body>
+<!-- header -->
+<div class="banner">
+	<div class="container">
+		<div class="header">
+			<div class="logo">
+				<a href="index.html"><img src="images/avatar.png" class="img-responsive" alt="" /><div><p id="usuario"> Usuario </p> </div></a>
+			</div>
+			<div class="header-right">
+				
+					
+			</div>
+				<div class="clearfix"> </div>
+			</div>
+				<div class="head-nav">
+					<span class="menu"> </span>
+						<ul class="cl-effect-15">
+							<li ><a id="miBlog" >Home</a></li>
+							<li id="publicar"><a  id="publicar">Publicar</a></li>
+							<li><a id="blogs" data-hover="Blogs">Blogs</a></li>
+							<li><a href="#" data-hover="Sobre nosotros">Sobre nosotros</a></li>
+							<li><a href="#" data-hover="Contactanos">Contactanos</a></li>
+							<li><a data-hover="Cerrar sesion" id="logout">Cerrar sesion</a></li>
+							<div class="clearfix"> </div>
+						</ul>
+				</div>
+
+						<!-- script-for-nav -->
+
+				<!-- script-for-nav --> 					 
+	</div> 
+</div>
+<!-- header -->
+	<div class="details">
+		<div class="container">
+			<div class="det_pic">
+				  <img src="images/img18.jpg" class="img-responsive" alt="">
+			</div>
+			
+			<div  class="det_text">
+				<p id="body"></p>
+			</div>
+
+			<div class="comments1">
+				<h4>Comentarios</h4>
+
+  				<div id= "comment" class="comments-main">
+					
+					
+				</div>
+			</div>
+
+			<div class="lev">
+			<div class="leave">
+				<h4>Deja tu comentario¡</h4>
+				</div>
+				<form id="commentform">
+					<label for="texto">Comentar</label>
+					<textarea id ="texto"></textarea>
+					<div class="clearfix"></div>
+			           <input name="submit" type="submit" id="submit" value="Enviar">
+					<div class="clearfix"></div>
+				 </form>
+			</div>
+				  
+		</div>
+	</div>
+	
+<!-- footer -->
+	<div class="footer">
+		
+	</div>
+<!-- footer -->
+</body>
+</html>

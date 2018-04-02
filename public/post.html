@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Mi Blog</title>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<script src="js/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#usuario").load("sesion",function(response, status, xhr){ // load carga inmediatamente en usuario el cambio de texto   
+	    	var items=jQuery.parseJSON(response);
+		    //alert('Bienvenido'+" " +items);   
+	  	});	
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+	    $("#logout").click(function(){
+	        $.post("/logout",
+	        {
+	          confirmation: "register",
+	        },
+	        function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+
+  	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#home").click(function(){
+	        $.get("/home",function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#submit").click(function(){
+	        $.post("/posteo",
+	        {
+	          title: $("#title").val(),
+	          body: $("#body").val()
+	        },
+	        function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#blogs").click(function(){
+	        $.get("/home",function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#main").click(function(){
+	        $.get("/main",
+	        {
+	          title: $("#title").val(),
+	          body: $("#body").val()
+	        },
+	        function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#usuario").load("sesion",function(response, status, xhr){ // load carga inmediatamente en usuario el cambio de texto   
+	    	var items=jQuery.parseJSON(response);
+		    //alert('Bienvenido'+" " +items);   
+	  	});	
+	});
+</script>
+
+</head>
+<body>
+<!-- header -->
+<div class="banner">
+	<div class="container">
+		<div class="header">
+			<div class="logo">
+				<a href="index.html"><img src="images/avatar.png" class="img-responsive" alt="" /> <p id="usuario"> Usuario </p></a>
+			</div>
+			<div class="header-right">
+
+					
+			</div>
+				<div class="clearfix"> </div>
+			</div>
+				<div class="head-nav">
+					<span class="menu"> </span>
+						<ul class="cl-effect-15">
+							<li ><a id="home" id="main">Home</a></li>
+							<li class="active" id="publicar"><a  id="publicar">Publicar</a></li>
+							<li id="blogs"><a data-hover="Blogs">Blogs</a></li>
+							<li><a href="#" data-hover="Sobre nosotros">Sobre nosotros</a></li>
+							<li><a href="#" data-hover="Contactanos">Contactanos</a></li>
+							<li><a data-hover="Cerrar sesion" id="logout">Cerrar sesion</a></li>
+							<div class="clearfix"> </div>
+						</ul>
+				</div>
+
+						<!-- script-for-nav -->
+					<script>
+						$( "span.menu" ).click(function() {
+						  $( ".head-nav ul" ).slideToggle(300, function() {
+							// Animation complete.
+						  });
+						});
+					</script>
+				<!-- script-for-nav --> 					 
+	</div> 
+</div>
+<!-- header -->
+	<div class="details">
+		<div class="container">
+			<div class="lev">
+				<div class="leave">
+					<h4>Nuevo Posteo</h4>
+				</div>
+
+				<div id="commentform">
+
+					<label for="title">Titulo de tu posteo</label>
+
+					<input id="title" type="text" value="Ingrese aqui el titutlo" size="100">
+					<label for="body">Que quieres compartir? ... </label>
+
+					<textarea id="body" value="Ingrese su comentario"></textarea>
+
+				 	<div class="clearfix"></div>
+		           	<input name="submit" type="submit" id="submit" value="Postear">
+					<div class="clearfix"></div>
+
+				</div>
+			</div>	  
+		</div>
+	</div>
+	
+<!-- footer -->
+	<div class="footer">
+
+	</div>
+<!-- footer -->
+</body>
+</html>

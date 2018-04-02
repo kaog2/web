@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Blog</title>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> 
+addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+</script>
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+<script src="js/jquery.min.js"></script>
+<script>
+	$(document).ready(function () {
+			
+
+	    size_li = $("#myList li").size();
+	    x=3;
+	    $('#myList li:lt('+x+')').show();
+	    $('#loadMore').click(function () {
+	        x= (x+1 <= size_li) ? x+1 : size_li;
+	        $('#myList li:lt('+x+')').show();
+	    });
+	    $('#showLess').click(function () {
+	        x=(x-1<0) ? 1 : x-1;
+	        $('#myList li').not(':lt('+x+')').hide();
+	    });
+
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#usuario").load("sesion",function(response, status, xhr){ // load carga inmediatamente en usuario el cambio de texto   
+	    	var items=jQuery.parseJSON(response);
+		    //alert('Bienvenido'+" " +items);   
+	  	});	
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+	    $("#logout").click(function(){
+	        $.post("/logout",
+	        {
+	          confirmation: "register",
+	        },
+	        function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+
+  	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+	    $("#publicar").click(function(){
+	        $.post("/publicar",{
+	          confirmation: "publicar",
+	        },
+	        function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+
+  	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#blogs").click(function(){
+	        $.get("/home",function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#miBlog").click(function(){
+	        $.get("/miBlog",function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+	});
+</script>
+
+<!--<script type="text/javascript">
+	$(document).ready(function(){
+	    $("#miBlog").click(function(){
+	        $.get("/home",function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+	});
+</script>-->
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+
+		$("#myList").load("obtenerPosteos",function(response, status, xhr){//load carga inmediatamente en usuario el cambio de texto 
+			//alert('status'+" " +status);
+
+			if (status == "success"){
+				var items=jQuery.parseJSON(response);
+				var i=0;
+				var j=0;
+				var li=0;
+				var lu=$("#myList").html('<li id="lista"></li>');
+				//$(lu).append('<li></li>');
+				var div='';
+				$(items).each(function(index,value){
+
+					var post_id = value.post_id;
+                    var body = value.body;
+                    var title = value.title;
+                    var username = value.username;
+                    var post_date = value.post_date;
+                    div+="<div id='l_g' class='l_g'>  <div id='praesent' class='col-md-3 praesent'> <div id='dapibus' class='dapibus'> <h2>"+title +"</h2> <h2 class = 'notshow' id=post_id"+i+">"+post_id +"</h2> <p class=adm><a href=#>"+username+"</a>"+"|"+post_date +"</p> <a><img src=images/img3.jpg class=img-responsive ></a> <p>"+body+"</p> <a id="+post_id +" class=link>"+"Seguir leyendo"+"</a></div> </div> </div>";
+
+		            i++; 
+		            //document.getElementById("lista_"+li).innerHTML=div;
+		        });
+                document.getElementById("lista").innerHTML=div;
+            } 
+            else {
+                $("#myList").html("Ha ocurrido un error: <br>"+ "#myList " + xhr.status + " " + xhr.statusText);
+            }
+ 
+	  	});	
+	});
+</script>
+
+<!-- READ-->
+<script type="text/javascript">
+	$(document).ready(function(){
+		alert('status'+" " +status);
+	    $('a.link').click(function(){
+	    	//alert('status'+" " +this.id);
+	        $.post("/read",{
+	        	//confirmation: "publicar",
+	          post_id: this.id,
+	        },
+	        function(data, status){
+	          if (typeof data.redirect == 'string') window.location = data.redirect;
+	          else {
+	            $(".error" ).text(data.status).show( "slow","linear" ).fadeOut();
+	          }
+	        });
+	    });
+
+  	});
+</script>
+
+<!-- script-for-nav -->
+<script>
+	$(document).ready(function(){
+		$( "span.menu" ).click(function() {
+		  $( ".head-nav ul" ).slideToggle(300, function() {
+			// Animation complete.
+		  });
+		});
+	});
+</script>
+<!-- script-for-nav -->	
+
+
+</head>
+<body>
+<!-- header -->
+<div class="banner">
+	<div class="container">
+		<div class="header">
+			<div class="logo">
+				<a href=""><img src="images/avatar.png" class="img-responsive" alt="" /><div><p id="usuario"> Usuario </p> </div> </a>
+			</div>
+			<div class="header-right">
+
+					
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="head-nav">
+			<span class="menu"> </span>
+			<ul class="cl-effect-15">
+				<li><a id="miBlog" >Home</a></li>
+				<li><a  id="publicar">Publicar</a></li>
+				<li class="active" id="blogs"><a data-hover="Blogs">Blogs</a></li>
+				<li><a href="#" data-hover="Sobre nosotros">Sobre nosotros</a></li>
+				<li><a href="#" data-hover="Contactanos">Contactanos</a></li>
+				<li><a data-hover="Cerrar sesion" id="logout">Cerrar sesion</a></li>
+					<div class="clearfix"> </div>
+			</ul>
+		</div>		 					 
+	</div> 
+</div>
+<!-- header -->
+
+<!-- content -->
+<div class="content">
+<div id = "error"></div>
+	<div class="container">
+		<div class="load_more" >	
+			<ul id="myList" >
+				
+			</ul>
+
+	
+			<div class="clearfix"></div>
+
+			
+
+			
+			<!--<div id="load_more">Mostrar mas</div>-->
+
+			<!--<div id="showLess">Mostrar menos</div>-->
+
+		</div>
+	</div>
+</div>
+<!-- content -->	
+<!-- footer -->
+<!-- footer -->
+</body>
+</html>
